@@ -86,6 +86,8 @@ header h2 {
 }
 
 .student-item {
+  overflow: hidden;
+  position: relative;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -218,4 +220,20 @@ header h2 {
 		border-radius: 5px;
 		box-shadow: 0 4px 16px 0 rgba(22, 42, 90, 0.09);
 	}
+}
+
+.position-right {
+	position: absolute;
+	right: -160%;
+	left: 0;
+	transition: right .5s ease-in-out; /*must match transitionTime in script.js + position-left*/
+	background-color: white;
+}
+
+.position-left {
+	position: absolute;
+	right: 0;
+	left: -160%;
+	transition: left .5s ease-in-out; /*must match transitionTime in script.js + position-right*/
+	background-color: white;
 }
