@@ -59,7 +59,7 @@ function updateStudentDiv(direction, studentList, studentHTML) {
 		return;
 	}
 
-	//page transition function
+	//page transition
 	let newStudentDiv = document.createElement('DIV');
 	newStudentDiv.className = `position-${direction}`; //hide new div to right or left
 	newStudentDiv.innerHTML = studentHTML;
@@ -77,7 +77,7 @@ function updateStudentDiv(direction, studentList, studentHTML) {
 	}, (transitionTime + 31));
 }
 
-//show first page on load || show page of button clicked
+//show first page on load && show page of button clicked
 function showpage(list, page, createNewList) {
 	let startIndex = (page * itemsPerPage) - itemsPerPage; //first list item to be shown on page
 	let endIndex = (page * itemsPerPage - 1); //last list item to be shown on page
@@ -91,9 +91,9 @@ function showpage(list, page, createNewList) {
 	}
 	if (createNewList) { //on page load and search functionality
 		studentsList.innerHTML = pageHTML.join(' ');
-		if (list.lenght > 9) {
+		if (list.length > 9) { //add active class to current page
 			document.querySelectorAll('button')[page].className = 'active';
-		} //add active class to current page
+		} 
 	} else if (currentPage < page) { //if going down a page/s (new div will come from right)
 		for (let i = 0; i < itemsPerPage; i++) {
 			updateStudentDiv('right', studentListItems[i], pageHTML[i]);
@@ -112,17 +112,16 @@ function showpage(list, page, createNewList) {
 ============================================================================*/
 
 function createPagnation(list) {
-	let pagnationListItems = [];
-	if (list.length >= itemsPerPage) { //only create pagnation buttons if items only fit on more then one page
+	pagnationList.innerHTML = ""; //remove current pagnation buttons
+	if (list.length >= itemsPerPage) { //only create pagnation buttons if items fit on more then one page
 		for (let i = 0; i < (list.length / itemsPerPage); i++) {
 			let button = `
 				<li>
 					<button type="button">${i + 1}</button>
 				</li>`;
-			pagnationListItems.push(button);
+			pagnationList.insertAdjacentHTML('beforeend', button)
 		}
 	}
-	pagnationList.innerHTML = pagnationListItems.join(' ');
 	buttons = document.querySelectorAll('button'); //update buttons variable to be used in global scope
 }
 
@@ -145,14 +144,13 @@ function checkButtonClicked(e) {
 ============================================================================*/
 
 function createSearch() {
-	let label = document.createElement('LABEL');
-	label.setAttribute('for', 'search');
-	label.className = 'student-search';
-	label.innerHTML = `
-		<span>Search by name</span>
-		<input id="search" placeholder="Search by name..." onkeyup="searchFunction(data)">
-		<button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>`;
-	header.appendChild(label);
+	let searchBox = `
+		<label for="search" class="student-search">
+            <span>Search by name</span>
+            <input id="search" placeholder="Search by name..." onkeyup="searchFunction(data)">
+            <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+        </label>`;
+	header.insertAdjacentHTML('beforeend', searchBox)
 }
 
 function searchFunction(list) {
@@ -175,7 +173,10 @@ function searchFunction(list) {
 		createPagnation(filteredList); //create new list in DOM with filtered list
 		showpage(filteredList, 1, true);
 	} else { //run when there are zero matches
-		studentsList.innerHTML = `<div style="height:50vh; display:flex;"><h1 class="header" style="font-weight: 700; font-size: 2.5rem; margin: auto; color: #4a5568;">SORRY THERE ARE NO RESULTS</h1></div>`;
+		studentsList.innerHTML = `
+			<div style="height:50vh; display:flex;">
+				<h1 class="header" style="font-weight: 700; font-size: 2.5rem; margin: auto; color: #4a5568;">SORRY THERE ARE NO RESULTS</h1>
+			</div>`;
 		for (let i = 0; i < buttons.length; i++) {
 			buttons[i].remove();
 		}
