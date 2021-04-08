@@ -92,7 +92,7 @@ function showpage(list, page, createNewList) {
 	if (createNewList) { //on page load and search functionality
 		studentsList.innerHTML = pageHTML.join(' ');
 		if (list.length > 9) { //add active class to current page
-			document.querySelectorAll('button')[page].className = 'active';
+			buttons[page - 1].className = 'active';
 		} 
 	} else if (currentPage < page) { //if going down a page/s (new div will come from right)
 		for (let i = 0; i < itemsPerPage; i++) {
