@@ -71,6 +71,9 @@ header h2 {
   font-size: 14px;
   background-color: #1e90ff;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .student-search div img {
