@@ -91,9 +91,6 @@ function showpage(list, page, createNewList) {
 	}
 	if (createNewList) { //on page load and search functionality
 		studentsList.innerHTML = pageHTML.join(' ');
-		if (list.length > 9) { //add active class to current page
-			buttons[page - 1].className = 'active';
-		} 
 	} else if (currentPage < page) { //if going down a page/s (new div will come from right)
 		for (let i = 0; i < itemsPerPage; i++) {
 			updateStudentDiv('right', studentListItems[i], pageHTML[i]);
@@ -123,6 +120,7 @@ function createPagnation(list) {
 		}
 	}
 	buttons = document.querySelectorAll('button'); //update buttons variable to be used in global scope
+	buttons[0].className = 'active';
 }
 
 function checkButtonClicked(e) {
@@ -148,7 +146,7 @@ function createSearch() {
 		<label for="search" class="student-search">
             <span>Search by name</span>
             <input id="search" placeholder="Search by name..." onkeyup="searchFunction(data)">
-            <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+            <div><img src="img/icn-search.svg" alt="Search icon"></div>
         </label>`;
 	header.insertAdjacentHTML('beforeend', searchBox)
 }

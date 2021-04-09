@@ -61,7 +61,7 @@ header h2 {
   color: #929b9e;
 }
 
-.student-search button {
+.student-search div {
   cursor: pointer;
   width: 55px;
   border-radius: 0 4px 4px 0;
@@ -73,7 +73,7 @@ header h2 {
   color: #fff;
 }
 
-.student-search button img {
+.student-search div img {
   width: 25px;
 }
 
